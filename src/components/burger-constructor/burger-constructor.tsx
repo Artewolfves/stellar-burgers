@@ -2,7 +2,10 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useNavigate } from 'react-router-dom';
-import { clearConstructor, constructorSelector } from '../../services/slices/constructorSlice';
+import {
+  clearConstructor,
+  constructorSelector
+} from '../../services/slices/constructorSlice';
 import { useDispatch, useSelector } from '../../services/store';
 import {
   placeNewOrder,
@@ -22,10 +25,8 @@ export const BurgerConstructor: FC = () => {
   const orderModalData = useSelector(getOrderData);
 
   const onOrderClick = () => {
+    if (!isAuthChecked) return navigate('/login');
     if (!constructorItems.bun || orderRequest) return;
-    if (!isAuthChecked) {
-      return navigate('/login');
-    }
     const orderData = [
       constructorItems.bun._id,
       ...constructorItems.ingredients.map((ingredient) => ingredient._id),

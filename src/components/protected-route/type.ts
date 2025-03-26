@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
 export type TProtectedRouteProps = {
-    onlyUnAuth?: boolean;
-    children: ReactElement;
+  onlyUnAuth?: boolean;
+  children: ReactElement;
 };

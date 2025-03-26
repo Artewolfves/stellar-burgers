@@ -14,12 +14,11 @@ export const ProtectedRoute = ({
   const location = useLocation();
 
   if ((!onlyUnAuth && !isAuthChecked) || (onlyUnAuth && isAuthChecked)) {
-      const redirectTo = onlyUnAuth ? location.state?.from || '/' : '/login';
-      return <Navigate replace to={redirectTo} state={{ from: location }} />;
-    }
+    const redirectTo = onlyUnAuth ? location.state?.from || '/' : '/login';
+    return <Navigate replace to={redirectTo} state={{ from: location }} />;
+  }
 
-    return children;
-} ;
+  return children;
+};
 
 export default ProtectedRoute;
-

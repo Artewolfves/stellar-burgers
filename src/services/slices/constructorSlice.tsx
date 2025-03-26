@@ -39,8 +39,7 @@ export const constructorSlice = createSlice({
     moveIngredient(
       state,
       action: PayloadAction<{ index: number; upwards: boolean }>
-    ) 
-    {
+    ) {
       const ingredientLink = state.ingredients[action.payload.index];
 
       if (action.payload.upwards) {
