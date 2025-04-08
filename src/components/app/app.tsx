@@ -25,6 +25,7 @@ import { useDispatch } from '../../services/store';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
 import { apiGetUser } from '../../services/slices/userSlice';
 import { resetOrder } from '../../services/slices/orderSlice';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch(),
@@ -34,13 +35,24 @@ const App = () => {
 
   const handleModalClose = () => {
     navigate(-1);
+  };
+  const handleOrderModalClose = () => {
     dispatch(resetOrder());
+    navigate(-1);
   };
 
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(apiGetUser());
   }, []);
+
+  useEffect(() => {
+    dispatch(getIngredients());
+    const token = getCookie('accessToken');
+    if (token) {
+      dispatch(apiGetUser());
+    }
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
@@ -113,9 +125,11 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={handleModalClose}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={handleOrderModalClose}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
           <Route
@@ -129,9 +143,11 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='Детали заказа' onClose={handleModalClose}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={handleOrderModalClose}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>
