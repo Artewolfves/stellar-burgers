@@ -58,4 +58,6 @@ export const getIngredientsState = (state: RootState) =>
 export const { getIngredientsWithSelector, getLoadingStatus } =
   ingredientsSlice.selectors;
 
+export const ingredientReduce = ingredientsSlice.reducer;
+
 export default ingredientsSlice;

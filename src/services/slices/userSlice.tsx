@@ -6,7 +6,7 @@ import {
   logoutApi,
   TRegisterData,
   TLoginData
-} from '@api';
+} from '../../utils/burger-api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
@@ -121,6 +121,8 @@ export const userSlice = createSlice({
     builder.addCase(logout.fulfilled, (state) => {
       state.isAuthChecked = false;
       state.user = { email: '', name: '' };
+      state.error = '';
+      state.loading = false;
     });
   },
   selectors: {
@@ -134,5 +136,6 @@ export const userSlice = createSlice({
 export const { isAuthCheckedSelector, getUser, getUserName, getError } =
   userSlice.selectors;
 export const getUserLoadingSelector = (state: RootState) => state.user.loading;
+export const userReducer = userSlice.reducer;
 
 export default userSlice;
